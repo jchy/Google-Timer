@@ -28,7 +28,7 @@ export default function Stopwatch() {
 
   return (
     <div className="App">
-      <h1>STOP WATCH</h1>
+      <h4>Stop Watch</h4>
       <h3>{state}</h3>
       <button onClick={startTimer}>START</button>
       <button onClick={pauseTimer}>PAUSE</button>
