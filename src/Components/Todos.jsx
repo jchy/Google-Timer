@@ -103,9 +103,6 @@ function Todos() {
   const handleDelete=(id) => {
       setTodos(todos.filter((item) => item.id !== id));
   }
-
-
-
 return (
     <div>
       <TodoInput onSubmit={onSubmit} />
