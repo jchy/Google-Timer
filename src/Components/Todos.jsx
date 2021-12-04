@@ -69,6 +69,18 @@ function Todos() {
         setIsError(true);
     }
   };
+  const markAsDone = async (id,status) => {
+      console.log(id);
+    try {
+      // const requests = [];
+        await updateTodo(id, !status);
+      // const results = await Promise.allSettled(requests);
+      // do something with results
+      await handleGetTodos();
+    } catch (err) {
+        setIsError(true);
+    }
+  };
 
   const onSubmit = async (title) => {
     try {
@@ -87,15 +99,28 @@ function Todos() {
   if(isError){
       return <div>ERROR 404</div>
   }
-  return (
+
+  const handleDelete=(id) => {
+      setTodos(todos.filter((item) => item.id !== id));
+  }
+
+
+
+return (
     <div>
       <TodoInput onSubmit={onSubmit} />
 <br /><br />
       <div >
         {todos.map((item) => (
           <div key={item.id}>
-            <span style={{border: '1px solid black', backgroundColor:"black", color:"white", padding:"3px" , marginTop:"10px"}}>{item.title} - </span>
-            <span style={{border: '1px solid black', backgroundColor:"black", color:"white", padding:"3px" , marginTop:"10px"}}>{item.status ? "DONE" : "PENDING"}</span><br /><br />
+            <span style={{border: '1px solid black', backgroundColor:"black", color:"white", padding:"3px" , marginTop:"10px", borderRadius:"8px", paddingLeft:"10px"}}>{item.title} - </span>
+            <span style={{border: '1px solid black', backgroundColor:"black", color:"white", padding:"3px" , marginTop:"10px", borderRadius:"8px", paddingLeft:"10px"}}>{item.status ? "DONE" : "PENDING"}</span>
+            <span style={{border: '1px solid black', backgroundColor:"black", color:"white", padding:"3px" , marginTop:"10px", borderRadius:"8px", paddingLeft:"10px"}}>
+            <button style={{borderRadius:"8px"}} onClick={()=>markAsDone(item.id, item.status)}>Toggle status</button></span>
+            <span style={{border: '1px solid black', backgroundColor:"black", color:"white", padding:"3px" , marginTop:"10px", borderRadius:"8px", paddingLeft:"10px"}}>
+            <button style={{borderRadius:"8px"}} onClick={()=>handleDelete(item.id, item.status)}>DELETE</button></span><br /><br />
+           
+           
           </div>
         ))}
       </div>
